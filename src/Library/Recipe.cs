@@ -15,11 +15,12 @@ namespace Full_GRASP_And_SOLID
 
         public Product FinalProduct { get; set; }
 
-        public void AddStep(Step step)
+        public Step AddStep(Step step, Product input, double quantity, Equipment equipment, int time)
         {
-            this.steps.Add(step);
+        Step step0 = new Step(input, quantity,  equipment,  time);
+        this.steps.Add(step0);
+        return step0;
         }
-
         public void RemoveStep(Step step)
         {
             this.steps.Remove(step);
@@ -52,5 +53,11 @@ namespace Full_GRASP_And_SOLID
 
             return result;
         }
+
+        public static Recipe CreateRecipe (Product finalProduct)
+        {
+            return new Recipe {FinalProduct= finalProduct};
+        }
     }
 }
+

@@ -19,17 +19,22 @@ namespace Full_GRASP_And_SOLID
         public static void Main(string[] args)
         {
             PopulateCatalogs();
-
-            Recipe recipe = new Recipe();
-            recipe.FinalProduct = GetProduct("Café con leche");
-            recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
-            recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
+            
+            Recipe recipe = CreateCoffee();
 
             IPrinter printer;
             printer = new ConsolePrinter();
             printer.PrintRecipe(recipe);
             printer = new FilePrinter();
             printer.PrintRecipe(recipe);
+        }
+
+        private static Recipe CreateCoffee()
+        {
+            Recipe recipe = Recipe.CreateRecipe(GetProduct("Café con leche"));
+            recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
+            recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
+            return recipe;
         }
 
         private static void PopulateCatalogs()
@@ -73,5 +78,6 @@ namespace Full_GRASP_And_SOLID
             var query = from Equipment equipment in equipmentCatalog where equipment.Description == description select equipment;
             return query.FirstOrDefault();
         }
+        
     }
 }
